@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>انجمن علمی مهندسی راه‌آهن دانشگاه اصفهان</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Vazirmatn', 'Inter', sans-serif;
+            background-color: #111827;
+            color: #F9FAFB;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1F2937; }
+        ::-webkit-scrollbar-thumb { background: #FBBF24; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 1)), url('https://images.unsplash.com/photo-1506606401543-2e73709cebb4?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .modal-backdrop {
+            transition: opacity 0.3s ease;
+        }
+        .popular-card {
+            background-image: linear-gradient(163deg, #fbbf24 0%, #d97706 100%);
+            border-radius: 22px;
+            transition: all .3s;
+        }
+        .popular-card-inner {
+            background-color: #1f2937;
+            border-radius: 20px;
+            transition: all .2s;
+            width: 100%;
+            height: 100%;
+        }
+        .popular-card-inner:hover {
+            transform: scale(0.98);
+        }
+        .popular-card:hover {
+            box-shadow: 0px 0px 30px 1px rgba(251, 191, 36, 0.3);
+        }
+        .section-bg-dark {
+             background-color: #111827;
+             background-image: radial-gradient(circle at 1px 1px, #374151 1px, transparent 0);
+             background-size: 25px 25px;
+        }
+        .section-bg-light {
+             background-color: #1f2937;
+             background-image: radial-gradient(circle at 1px 1px, #4b5563 1px, transparent 0);
+             background-size: 30px 30px;
+        }
+        .member-card {
+            background-color: #1f2937;
+            border-radius: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #374151;
+        }
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
+        /* Preloader Styles */
+        #preloader {
+            transition: opacity 0.7s ease-in-out, visibility 0.7s ease-in-out;
+        }
+        .train-container {
+            width: 250px;
+            overflow: hidden;
+        }
+        .train {
+            animation: move-train 3s linear infinite;
+        }
+        @keyframes move-train {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        /* Animation on Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-50">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-gray-900">
+        <div class="train-container">
+            <svg class="train w-24 h-24 text-amber-400" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm3.333 15H8.667V7h8.666v10z"/>
+                <path d="M9 14h6v2H9zM12 8a2 2 0 100 4 2 2 0 000-4z"/>
+            </svg>
+        </div>
+        <svg width="250" height="10" class="mt-4">
+            <line x1="0" y1="5" x2="250" y2="5" stroke="#4b5563" stroke-width="2"/>
+            <line x1="0" y1="9" x2="250" y2="9" stroke="#4b5563" stroke-width="2"/>
+        </svg>
+        <p class="text-amber-400 mt-4 text-lg font-semibold animate-pulse">در حال بارگذاری...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50 shadow-lg shadow-black/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <div class="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center">
+                    <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/logo/IMG_20220404_131759_066.png" alt="لوگوی انجمن" class="w-full h-full rounded-full object-cover mix-blend-multiply">
+                </div>
+                <a href="#" class="text-2xl font-bold text-white">انجمن علمی راه‌آهن</a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 space-x-reverse">
+                <a href="#popular" class="hover:text-amber-400 transition-colors">محبوب‌ترین‌ها</a>
+                <a href="#courses" class="hover:text-amber-400 transition-colors">دوره‌ها</a>
+                <a href="#articles" class="hover:text-amber-400 transition-colors">مقالات</a>
+                <a href="#members" class="hover:text-amber-400 transition-colors">اعضا</a>
+                <a href="#poll" class="hover:text-amber-400 transition-colors">نظرسنجی</a>
+            </div>
+            <div id="auth-container" class="hidden md:flex items-center space-x-4 space-x-reverse">
+                 <!-- Populated by JavaScript -->
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+             <!-- Populated by JavaScript -->
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 reveal"> همگی با هم تلاش برای پیشرفت و اینده درخشان  برای صنعت ریلی کشور</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8 reveal" style="transition-delay: 200ms;"> ما به توسعه دانش، ترویج نوآوری و ایجاد شبکه‌ای از متخصصان متعهد هستیم.</p>
+                <a href="#popular" class="bg-amber-400 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg hover:bg-amber-500 transition-transform transform hover:scale-105 reveal" style="transition-delay: 400ms;">شروع کنید</a>
+            </div>
+        </section>
+
+        <!-- Popular Items Section -->
+        <section id="popular" class="py-20 section-bg-dark">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center items-center gap-4 mb-2 reveal">
+                    <svg class="w-10 h-10 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345h5.518a.562.562 0 01.32.959l-4.435 3.223a.563.563 0 00-.18.635l1.703 5.21a.562.562 0 01-.84.623l-4.434-3.223a.563.563 0 00-.667 0l-4.434 3.223a.562.562 0 01-.84-.623l1.703-5.21a.563.563 0 00-.18-.635l-4.435-3.223a.562.562 0 01.32-.959h5.518a.563.563 0 00.475-.345L11.48 3.5z" /></svg>
+                    <h2 class="text-3xl font-bold text-center text-amber-400">محبوب ترین ها</h2>
+                </div>
+                <p class="text-center text-gray-400 mb-12 reveal" style="transition-delay: 100ms;">نگاهی به پربازدیدترین دوره‌ها و مقالات انجمن</p>
+                <div id="popular-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                    <!-- Loading Skeletons -->
+                    <div class="w-full max-w-xs popular-card animate-pulse"><div class="popular-card-inner h-96"></div></div>
+                    <div class="w-full max-w-xs popular-card animate-pulse"><div class="popular-card-inner h-96"></div></div>
+                    <div class="w-full max-w-xs popular-card animate-pulse"><div class="popular-card-inner h-96"></div></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Courses Section -->
+        <section id="courses" class="py-20 section-bg-light">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center items-center gap-4 mb-2 reveal">
+                    <svg class="w-10 h-10 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                    <h2 class="text-3xl font-bold text-center text-amber-400">دوره های آموزشی</h2>
+                </div>
+                <p class="text-center text-gray-400 mb-12 reveal" style="transition-delay: 100ms;">دانش خود را با دوره‌های تخصصی ما ارتقا دهید</p>
+                <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Loading Skeletons -->
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg animate-pulse"><div class="h-48 bg-gray-700"></div><div class="p-6 space-y-4"><div class="h-6 bg-gray-700 rounded"></div><div class="h-4 bg-gray-700 rounded w-5/6"></div></div></div>
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg animate-pulse"><div class="h-48 bg-gray-700"></div><div class="p-6 space-y-4"><div class="h-6 bg-gray-700 rounded"></div><div class="h-4 bg-gray-700 rounded w-5/6"></div></div></div>
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg animate-pulse"><div class="h-48 bg-gray-700"></div><div class="p-6 space-y-4"><div class="h-6 bg-gray-700 rounded"></div><div class="h-4 bg-gray-700 rounded w-5/6"></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Section -->
+        <section id="articles" class="py-20 section-bg-dark">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center items-center gap-4 mb-2 reveal">
+                     <svg class="w-10 h-10 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" /></svg>
+                    <h2 class="text-3xl font-bold text-center text-amber-400">آخرین مقالات</h2>
+                </div>
+                <p class="text-center text-gray-400 mb-12 reveal" style="transition-delay: 100ms;">از جدیدترین پژوهش‌ها و تحلیل‌های تخصصی انجمن  مطلع شوید</p>
+                <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Loading Skeletons -->
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg animate-pulse"><div class="h-48 bg-gray-700"></div><div class="p-6 space-y-4"><div class="h-6 bg-gray-700 rounded"></div><div class="h-4 bg-gray-700 rounded w-5/6"></div></div></div>
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg animate-pulse"><div class="h-48 bg-gray-700"></div><div class="p-6 space-y-4"><div class="h-6 bg-gray-700 rounded"></div><div class="h-4 bg-gray-700 rounded w-5/6"></div></div></div>
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg animate-pulse"><div class="h-48 bg-gray-700"></div><div class="p-6 space-y-4"><div class="h-6 bg-gray-700 rounded"></div><div class="h-4 bg-gray-700 rounded w-5/6"></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Assistant Section -->
+        <section id="ai-assistant" class="py-20 section-bg-light">
+            <div class="container mx-auto px-6 reveal">
+                <div class="text-center mb-12">
+                     <div class="flex justify-center items-center gap-4 mb-2">
+                        <svg class="w-10 h-10 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 7.5v10.5a2.25 2.25 0 002.25 2.25z" /></svg>
+                        <h2 class="text-3xl font-bold text-center text-amber-400">دستیار هوشمند ریل پلاس</h2>
+                     </div>
+                     <p class="text-center text-gray-400"> دستیار هوشمند انجمن علمی مهندسی راه اهن دانشگاه اصفهان</p>
+                </div>
+                <div class="max-w-4xl mx-auto rounded-xl shadow-2xl shadow-black/30 overflow-hidden border border-amber-500/30 bg-gray-900/50 backdrop-blur-sm">
+                    <div id="chat-window" class="p-6 h-96 overflow-y-auto space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-amber-400 p-2 rounded-full shadow-lg shadow-amber-500/20"><svg class="w-6 h-6 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 7.5v10.5a2.25 2.25 0 002.25 2.25z" /></svg></div>
+                            <div class="bg-gray-800 p-4 rounded-lg rounded-tl-none"><p>سلام! من ریل پلاس  هستم. چطور می‌توانم به شما کمک کنم؟</p></div>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-800/50 border-t border-amber-500/30 flex items-center gap-4">
+                        <input type="text" id="chat-input" class="w-full bg-gray-700 text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-500" placeholder="پیام خود را بنویسید...">
+                        <button id="send-btn" class="p-3 bg-amber-400 rounded-lg hover:bg-amber-500 transition-all duration-300 transform hover:scale-110">
+                            <svg class="w-6 h-6 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Members Section -->
+        <section id="members" class="py-20 section-bg-dark">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center items-center gap-4 mb-2 reveal">
+                    <svg class="w-10 h-10 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m-7.289 2.72a3 3 0 01-4.682-2.72 9.094 9.094 0 013.741-.479m7.289 2.72a8.974 8.974 0 01-4.582 1.343m-7.289-2.72a8.974 8.974 0 00-4.582 1.343m11.869-4.789A2.25 2.25 0 0118 15.75l-2.638-2.638a2.25 2.25 0 01-.149-3.192l2.638-2.638A2.25 2.25 0 0118 7.25l-2.638 2.638a2.25 2.25 0 01-3.192.149l-2.638-2.638a2.25 2.25 0 01-.149-3.192l2.638-2.638a2.25 2.25 0 013.192.149L18 7.25z" /></svg>
+                    <h2 class="text-3xl font-bold text-center text-amber-400">شورای مرکزی</h2>
+                </div>
+                <p class="text-center text-gray-400 mb-12 reveal" style="transition-delay: 100ms;">با اعضای اصلی انجمن آشنا شوید.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Member Card 1 -->
+                    <div class="member-card text-center p-6 reveal">
+                        <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/pictue/343.jpg" alt="عکس مانی هوشمند" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-amber-400 shadow-lg object-cover">
+                        <h4 class="text-xl font-bold text-white"> مانی هوشمند</h4>
+                        <p class="text-amber-400 mb-4">دبیرانجمن</p>
+                    </div>
+                    <!-- Member Card 2 -->
+                    <div class="member-card text-center p-6 reveal" style="transition-delay: 100ms;">
+                        <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/pictue/photo_5997079354305269263_y%20(1).jpg" alt="عکس محمد حسن صابری" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-amber-400 shadow-lg object-cover">
+                        <h4 class="text-xl font-bold text-white">محمد حسن صابری</h4>
+                        <p class="text-amber-400 mb-4">نایب دبیر و امور مالی</p>
+                    </div>
+                    <!-- Member Card 3 -->
+                    <div class="member-card text-center p-6 reveal" style="transition-delay: 200ms;">
+                        <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/pictue/IMG_20250710_073622_023.jpg" alt="عکس امیر محمد پوستی زاده" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-amber-400 shadow-lg object-cover">
+                        <h4 class="text-xl font-bold text-white"> امیر محمد پوستی زاده</h4>
+                        <p class="text-amber-400 mb-4"> مسئول نشریه انجمن</p>
+                    </div>
+                    <!-- Member Card 4 -->
+                    <div class="member-card text-center p-6 reveal" style="transition-delay: 300ms;">
+                        <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/pictue/photo_5863847553227930569_y.jpg" alt="عکس امیر حسین نوروزی" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-amber-400 shadow-lg object-cover">
+                        <h4 class="text-xl font-bold text-white">امیر حسین نوروزی</h4>
+                        <p class="text-amber-400 mb-4"> پشتیبانی و تدارکات</p>
+                    </div>
+                    <!-- Member Card 5 -->
+                    <div class="member-card text-center p-6 reveal">
+                        <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/pictue/photo_6010107570662000796_x.jpg" alt="عکس میلاد صدیقی" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-amber-400 shadow-lg object-cover">
+                        <h4 class="text-xl font-bold text-white">میلاد صدیقی</h4>
+                        <p class="text-amber-400 mb-4"> هماهنگی و اجرای برنامه و بازدیدها</p>
+                    </div>
+                    <!-- Member Card 6 -->
+                    <div class="member-card text-center p-6 reveal" style="transition-delay: 100ms;">
+                        <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/pictue/IMG_20250705_012143.jpg" alt="عکس مریم فکری" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-amber-400 shadow-lg object-cover">
+                        <h4 class="text-xl font-bold text-white">مریم فکری</h4>
+                        <p class="text-amber-400 mb-4">هماهنگی سمینارها و وبینار </p>
+                    </div>
+                    <!-- Member Card 7 -->
+                    <div class="member-card text-center p-6 reveal" style="transition-delay: 200ms;">
+                        <img src="https://dbdwxuohbomjdkvqkfpo.supabase.co/storage/v1/object/public/pictue/photo_6001066127633008320_y.jpg" alt="عکس امیررضا داوودی" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-amber-400 shadow-lg object-cover">
+                        <h4 class="text-xl font-bold text-white">امیررضا داوودی</h4>
+                        <p class="text-amber-400 mb-4"> روابط عمومی</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Poll Section -->
+        <section id="poll" class="py-20 section-bg-light">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center items-center gap-4 mb-2 reveal">
+                    <svg class="w-10 h-10 text-amber-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 100 15 7.5 7.5 0 000-15zM21 21l-5.197-5.197" /></svg>
+                    <h2 class="text-3xl font-bold text-center text-amber-400">نظرسنجی</h2>
+                </div>
+                <p class="text-center text-gray-400 mb-12 reveal" style="transition-delay: 100ms;">نظر شما برای ما مهم است!</p>
+                
+                <div class="max-w-2xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg reveal" style="transition-delay: 200ms;">
+                    <h3 class="text-xl font-bold text-white mb-4">چه موضوعی را برای فعالیت‌های آینده انجمن پیشنهاد می‌کنید؟</h3>
+                    <textarea id="poll-suggestion" rows="4" class="w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-400 placeholder-gray-500" placeholder="پیشنهاد خود را اینجا بنویسید... (مثلاً: کارگاه نرم‌افزار OpenTrack)"></textarea>
+                    <button id="submit-poll-btn" class="mt-6 w-full bg-amber-400 text-gray-900 font-bold py-3 rounded-lg hover:bg-amber-500 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed">ثبت نظر</button>
+                    <div id="poll-result" class="mt-4 text-center text-green-400 hidden">از نظر شما سپاسگزاریم!</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-700">
+        <div class="container mx-auto px-6 py-12">
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-right">
+                <div>
+                    <h5 class="font-bold text-lg mb-4 text-white">انجمن علمی راه‌آهن دانشگاه اصفهان</h5>
+                    <p class="text-gray-400">پیشرو در دانش و نوآوری صنعت حمل و نقل ریلی.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-lg mb-4 text-white">پیوندهای سریع</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#popular" class="text-gray-400 hover:text-amber-400">محبوب‌ترین‌ها</a></li>
+                        <li><a href="#articles" class="text-gray-400 hover:text-amber-400">مقالات</a></li>
+                        <li><a href="#members" class="text-gray-400 hover:text-amber-400">اعضا</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-lg mb-4 text-white">ما را دنبال کنید</h5>
+                    <div class="flex justify-center md:justify-start space-x-4 space-x-reverse">
+                        <a href="https://www.instagram.com/rwe_ui.1/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-amber-400" title="Instagram">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"></path></svg>
+                        </a>
+                        <a href="https://t.me/Rwe_Ui" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-amber-400" title="Telegram">
+                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.57c-.28 1.13-1.04 1.4-1.74.88L14.25 16l-4.47 4.24c-.5.47-1.1.22-1.28-.45z"></path></svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-amber-400" title="LinkedIn">
+                           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3H19M18.5,18.5V13.2A3.26,3.26 0 0,0 15.24,9.94C14.39,9.94 13.4,10.43 12.92,11.24V10.13H10.13V18.5H12.92V13.57C12.92,12.8 13.54,12.17 14.31,12.17A1.4,1.4 0 0,1 15.71,13.57V18.5H18.5M6.88,8.56A1.68,1.68 0 0,0 8.56,6.88C8.56,6 7.78,5.2 6.88,5.2A1.69,1.69 0 0,0 5.2,6.88C5.2,7.78 6,8.56 6.88,8.56M8.27,18.5V10.13H5.5V18.5H8.27Z"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500">
+                <p>&copy; ۱۴۰۴-۱۴۰۵ - تمامی حقوق این سایت برای انجمن علمی مهندسی راه‌آهن دانشگاه اصفهان محفوظ است.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-gray-900/80 modal-backdrop flex items-center justify-center hidden z-50" >
+        <div class="bg-gray-800 rounded-xl shadow-2xl w-full max-w-md m-4" id="auth-modal-content"></div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+
+        const supabaseUrl = 'https://dbdwxouhbomjdkvqkfpo.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRiZHd4dW9oYm9tamRrdnFrZnBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxMDg4NjgsImV4cCI6MjA2NzY4NDg2OH0.XvNqJTIKfyYX_LmYndroYzITtx7o3oT931Zv5RhNtLE';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const authContainer = document.getElementById('auth-container');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const authModal = document.getElementById('auth-modal');
+        const authModalContent = document.getElementById('auth-modal-content');
+        const popularGrid = document.getElementById('popular-grid');
+        const articlesGrid = document.getElementById('articles-grid');
+        const coursesGrid = document.getElementById('courses-grid');
+        const chatWindow = document.getElementById('chat-window');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const submitPollBtn = document.getElementById('submit-poll-btn');
+        const pollResult = document.getElementById('poll-result');
+
+        // --- AUTHENTICATION ---
+        supabase.auth.onAuthStateChange((_, session) => updateUIForAuthState(session?.user));
+        checkUser();
+        async function checkUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            updateUIForAuthState(user);
+        }
+        function updateUIForAuthState(user) {
+            authContainer.innerHTML = '';
+            mobileMenu.innerHTML = '';
+            const navLinks = `<a href="#popular" class="block md:inline-block py-2 md:py-0 hover:text-amber-400">محبوب‌ترین‌ها</a><a href="#courses" class="block md:inline-block py-2 md:py-0 hover:text-amber-400">دوره‌ها</a><a href="#articles" class="block md:inline-block py-2 md:py-0 hover:text-amber-400">مقالات</a><a href="#ai-assistant" class="block md:inline-block py-2 md:py-0 hover:text-amber-400">دستیار هوشمند</a><a href="#members" class="block md:inline-block py-2 md:py-0 hover:text-amber-400">اعضا</a><a href="#poll" class="block md:inline-block py-2 md:py-0 hover:text-amber-400">نظرسنجی</a>`;
+            const mobileNavLinks = navLinks.replaceAll('md:inline-block', '').replaceAll('md:py-0', '');
+            if (user) {
+                const logoutButtonHTML = `<button id="logout-btn" class="bg-red-500 text-white font-bold py-2 px-5 rounded-lg hover:bg-red-600">خروج</button>`;
+                authContainer.innerHTML = `<span class="text-gray-300">خوش آمدید، ${user.email.split('@')[0]}</span>` + logoutButtonHTML;
+                mobileMenu.innerHTML = mobileNavLinks + `<div class="mt-4">${logoutButtonHTML.replace('logout-btn', 'mobile-logout-btn')}</div>`;
+                document.getElementById('logout-btn').addEventListener('click', () => supabase.auth.signOut());
+                document.getElementById('mobile-logout-btn').addEventListener('click', () => supabase.auth.signOut());
+            } else {
+                const loginButtonHTML = `<div id="login-register-btn" role="button" tabindex="0" class="bg-amber-400 text-gray-900 font-bold py-2 px-4 rounded-lg hover:bg-amber-500 transition-colors cursor-pointer"><div class="flex items-center justify-center space-x-2 space-x-reverse"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current"><g data-name="Layer 2"><path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path></g></svg><p>ورود / ثبت‌نام</p></div></div>`;
+                authContainer.innerHTML = loginButtonHTML;
+                mobileMenu.innerHTML = mobileNavLinks + `<div class="mt-4">${loginButtonHTML.replace('id="login-register-btn"', 'id="mobile-login-register-btn"')}</div>`;
+                document.getElementById('login-register-btn').addEventListener('click', showAuthModal);
+                document.getElementById('mobile-login-register-btn').addEventListener('click', showAuthModal);
+            }
+        }
+        function showAuthModal() {
+            authModal.classList.remove('hidden');
+            authModalContent.innerHTML = `<div class="p-8"><div class="flex justify-between items-center mb-6"><h2 class="text-2xl font-bold text-white">ورود یا ثبت‌نام</h2><button id="close-modal-btn" class="text-gray-400 hover:text-white text-3xl">&times;</button></div><div id="auth-error" class="text-red-400 text-center mb-4 hidden"></div><form id="auth-form" class="space-y-4"><input type="email" id="email-input" placeholder="ایمیل" required class="w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-400"><input type="password" id="password-input" placeholder="رمز عبور (حداقل ۶ کاراکتر)" required class="w-full p-3 bg-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-400"><div class="flex gap-4"><button type="submit" id="login-btn" class="w-full bg-amber-400 text-gray-900 font-bold py-3 rounded-lg hover:bg-amber-500">ورود</button><button type="submit" id="register-btn" class="w-full bg-gray-600 text-white font-bold py-3 rounded-lg hover:bg-gray-500">ثبت‌نام</button></div></form></div>`;
+            document.getElementById('close-modal-btn').addEventListener('click', () => authModal.classList.add('hidden'));
+            document.getElementById('login-btn').addEventListener('click', handleLogin);
+            document.getElementById('register-btn').addEventListener('click', handleRegister);
+        }
+        async function handleLogin(e) { e.preventDefault(); const { error } = await supabase.auth.signInWithPassword({ email: document.getElementById('email-input').value, password: document.getElementById('password-input').value }); if(error){ document.getElementById('auth-error').textContent = "ایمیل یا رمز عبور اشتباه است."; document.getElementById('auth-error').classList.remove('hidden'); } else { authModal.classList.add('hidden'); } }
+        async function handleRegister(e) { e.preventDefault(); const { error } = await supabase.auth.signUp({ email: document.getElementById('email-input').value, password: document.getElementById('password-input').value }); if(error){ document.getElementById('auth-error').textContent = "خطا در ثبت‌نام."; document.getElementById('auth-error').classList.remove('hidden'); } else { authModal.classList.add('hidden'); alert('ثبت‌نام موفق بود! لطفاً ایمیل خود را برای تایید حساب کاربری چک کنید.'); } }
+
+        // --- DATA FETCHING ---
+        async function fetchPopularItems() {
+            const { data, error } = await supabase.from('courses').select('*').limit(3);
+            if (error) { console.error("Error fetching popular items:", error); return; }
+            popularGrid.innerHTML = '';
+            data.forEach(item => {
+                popularGrid.innerHTML += `<div class="popular-card w-full max-w-xs reveal"><div class="popular-card-inner flex flex-col overflow-hidden"><div class="relative"><img src="${item.imageUrl}" alt="${item.title}" class="w-full h-48 object-cover"><span class="absolute top-2 right-2 bg-amber-400 text-gray-900 text-xs font-bold px-2 py-1 rounded-full">دوره آموزشی</span></div><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-bold mb-2 text-white">${item.title}</h3><p class="text-gray-400 mb-4 flex-grow text-sm">${item.description}</p><div class="mt-auto"><a href="#" class="inline-block bg-gray-700 text-white font-semibold py-2 px-5 rounded-lg hover:bg-gray-600 text-sm">مشاهده</a></div></div></div></div>`;
+            });
+        }
+        async function fetchCourses() {
+            const { data, error } = await supabase.from('courses').select('*');
+            if (error) { console.error("Error fetching courses:", error); return; }
+            coursesGrid.innerHTML = '';
+            data.forEach(course => {
+                coursesGrid.innerHTML += `<div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg flex flex-col transition-all duration-300 hover:border-amber-400/50 hover:shadow-amber-500/10 hover:transform hover:-translate-y-2 reveal"><img src="${course.imageUrl}" alt="${course.title}" class="w-full h-48 object-cover"><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-bold mb-2 text-white">${course.title}</h3><p class="text-gray-400 mb-4 flex-grow text-sm">${course.description}</p><div class="mt-auto flex justify-between items-center"><span class="text-lg font-bold text-amber-400">${course.price}</span><a href="#" class="bg-amber-400 text-gray-900 font-semibold py-2 px-4 rounded-lg hover:bg-amber-500 text-sm">ثبت نام</a></div></div></div>`;
+            });
+        }
+        async function fetchArticles() {
+            const { data, error } = await supabase.from('articles').select('*').limit(3);
+            if (error) { console.error("Error fetching articles:", error); return; }
+            articlesGrid.innerHTML = '';
+            data.forEach(article => {
+                articlesGrid.innerHTML += `<div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl overflow-hidden shadow-lg flex flex-col transition-all duration-300 hover:border-amber-400/50 hover:shadow-amber-500/10 hover:transform hover:-translate-y-2 reveal"><img src="${article.imageUrl}" alt="${article.title}" class="w-full h-48 object-cover"><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-bold mb-2 text-white">${article.title}</h3><p class="text-gray-400 mb-4 flex-grow text-sm">${article.excerpt}</p><a href="#" class="text-amber-400 hover:text-amber-500 font-semibold mt-auto self-start">ادامه مطلب &rarr;</a></div></div>`;
+            });
+        }
+
+        // --- AI ASSISTANT (Connected to Gemini) ---
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
+
+        async function sendMessage() {
+            const messageText = chatInput.value.trim();
+            if (!messageText) return;
+            
+            appendMessage(messageText, true);
+            chatInput.value = '';
+            showLoadingIndicator();
+
+            const apiKey = "AIzaSyDamuSj4WO45KYvgQ4wxTNHwFiiz7hYpcM"; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+            
+            const prompt = `You are an expert AI assistant for railway engineers, speaking in Persian. Answer the following question in a helpful and concise way. Question: "${messageText}"`;
+            
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: prompt }]
+                }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                removeLoadingIndicator();
+
+                if (result.candidates && result.candidates.length > 0) {
+                    const aiResponse = result.candidates[0].content.parts[0].text;
+                    appendMessage(aiResponse.replace(/\n/g, '<br>'), false);
+                } else {
+                    appendMessage("متاسفانه پاسخی دریافت نشد. لطفاً دوباره تلاش کنید.", false);
+                }
+
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                removeLoadingIndicator();
+                appendMessage("خطایی در ارتباط با دستیار هوشمند رخ داد. لطفاً اتصال اینترنت خود را بررسی کرده و مجدداً تلاش نمایید.", false);
+            }
+        }
+
+        function appendMessage(message, isUser) {
+            const messageElement = document.createElement('div');
+            messageElement.className = `flex items-start gap-3 ${isUser ? 'justify-end' : ''}`;
+            messageElement.innerHTML = isUser ? `<div class="bg-amber-400 text-gray-900 p-4 rounded-lg rounded-br-none max-w-lg"><p>${message}</p></div><div class="bg-gray-700 p-2 rounded-full"><svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg></div>` : `<div class="bg-amber-400 p-2 rounded-full"><svg class="w-6 h-6 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 7.5v10.5a2.25 2.25 0 002.25 2.25z" /></svg></div><div class="bg-gray-800 p-4 rounded-lg rounded-tl-none max-w-lg"><p>${message}</p></div>`;
+            chatWindow.appendChild(messageElement);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+        function showLoadingIndicator() {
+            const indicator = `<div id="loading-indicator" class="flex items-start gap-3"><div class="bg-amber-400 p-2 rounded-full"><svg class="w-6 h-6 text-gray-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V7.5a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 7.5v10.5a2.25 2.25 0 002.25 2.25z" /></svg></div><div class="bg-gray-800 p-4 rounded-lg rounded-tl-none"><div class="flex items-center space-x-2 space-x-reverse"><div class="w-2 h-2 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div><div class="w-2 h-2 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div><div class="w-2 h-2 bg-amber-400 rounded-full animate-bounce"></div></div></div></div>`;
+            chatWindow.innerHTML += indicator;
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+        function removeLoadingIndicator() {
+            const indicator = document.getElementById('loading-indicator');
+            if (indicator) indicator.remove();
+        }
+
+        // --- Poll Logic ---
+        submitPollBtn.addEventListener('click', async () => {
+            const suggestionText = document.getElementById('poll-suggestion').value.trim();
+            if (!suggestionText) {
+                alert('لطفاً پیشنهاد خود را بنویسید.');
+                return;
+            }
+            // Save the suggestion to Supabase
+            const { data, error } = await supabase
+                .from('suggestions')
+                .insert([{ suggestion: suggestionText }]);
+
+            if (error) {
+                console.error('Error saving suggestion:', error);
+                alert('خطایی در ثبت نظر رخ داد. لطفاً دوباره تلاش کنید.');
+                return;
+            }
+
+            // Disable form and show thank you message
+            document.getElementById('poll-suggestion').disabled = true;
+            submitPollBtn.disabled = true;
+            submitPollBtn.textContent = 'نظر شما ثبت شد';
+            pollResult.classList.remove('hidden');
+        });
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            window.addEventListener('load', () => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            });
+
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            checkUser();
+            fetchPopularItems();
+            fetchArticles();
+            fetchCourses(); 
+            
+            // Animation on Scroll Logic
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
